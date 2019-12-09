@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Geometria Linea</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel=StyleSheet href="../style.css" type="text/css" media=screen>
+    <link href="../prism.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+</head>
+
+<body>
+  <header id="header">
+    <div class="wrapper">
+      <a href="../index.html">
+        <img src="../images/logo.png" alt="logo">
+      </a>
+      <ul class="menu-right">
+        <li class="menu-cta"><a href="../index.html">Volver</a></li>
+      </ul>
+    </div>
+  </header>
+  <section class="ejercicio">
+    <form name="cuadranteForm" method="post">
+      <h1 class="h1">Geometría Línea Cuadrantes</h1>
+      <table class="table">
+        <tr class="row">
+          <td class="cell">Punto 1 X</td>
+          <td class="cell">
+            <div class="input-item">
+              <input id="punto1x" name="punto1x">
+          </td>
+          </div>
+          <td class="cell" rowspan="4"><img src="descartes+caricatura.jpg"></td>
+        </tr>
+
+        <tr class="row">
+          <td class="cell">Punto 1 Y</td>
+          <td class="cell">
+            <div class="input-item">
+              <input id="punto1y" name="punto1y">
+            </div>
+          </td>
+        </tr>
+        <tr class="row">
+          <td class="cell">Punto 2 X</td>
+          <td class="cell">
+            <div class="input-item">
+              <input id="punto2x" name="punto2x">
+            </div>
+          </td>
+        </tr>
+        <tr class="row">
+          <td class="cell">Punto 2 Y</td>
+          <td class="cell">
+            <div class="input-item">
+              <input id="punto2y" name="punto2y">
+            </div>
+          </td>
+        </tr>
+      </table>
+      <div class="buttons">
+        <input class="cta" type="button" value="Actualizar Cordenadas" onclick="actulizarC()">
+        <input class="cta" type="button" value="Determinar Posicion" onclick="ubicacion()">
+      </div>
+    </form>
+  </section>
+  <section class="documentacion">
+    <h1 class="h1">EXPLICACION</h1>
+    <div class="video">
+        <iframe width="100%" height="500" src="https://www.youtube.com/embed/NF1iYevOioI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <h1 class="h1">CODIGO</h1>
+    <div class="codigo">
+      <div class="tab">
+        <button class="tablinks" id="defaultOpen" onclick="openTab(event, 'modelo')">modelo.php</button>
+        <button class="tablinks" onclick="openTab(event, 'control')">control.php</button>
+        <button class="tablinks" onclick="openTab(event, 'controller')">controller.js</button>
+        <button class="tablinks" onclick="openTab(event, 'view')">view.html</button>
+        <button class="tablinks" onclick="openTab(event, 'style')">style.css</button>
+      </div>
+
+      <div id="modelo" class="tabcontent">
+        <pre><code class="language-php line-numbers">
+						class GeometriaCuadrante {
+							private $x1;
+							private $y1;
+							private $x2;
+							private $y2;
+							
+						
+							public function __construct($x1,$y1, $x2,$y2)
+							{
+								$this->x1 = $x1;
+								$this->y1 = $y1;
+								$this->x2 = $x2;
+								$this->y2 = $y2;
+						
+							}
+							public function getUbicacion() {
+								$ubicacion = "Error, es imposible";
+								if ($this->estaEnCuadranteI()) {
+									$ubicacion = "Cuadrante I";
+								}
+								if ($this->estaEnCuadranteII()) {
+									$ubicacion = "Cuadrante II";
+								}
+								if ($this->estaEnCuadranteIII()) {
+									$ubicacion = "Cuadrante III";
+								}
+								if ($this->estaEnCuadranteIII()) {
+									$ubicacion = "Cuadrante IV";
+								}
+								//Complete para que la salida se lo esperado por los test...
+								return $ubicacion;
+							}//fin getUbicacion
+						
+							public function getCuantosCuadrantes() {
+								$cont = 0;
+								if ($this->estaEnCuadranteI()) {
+									$cont++;
+								}
+								if ($this->estaEnCuadranteII()) {
+									$cont++;
+								}
+								if ($this->estaEnCuadranteIII()) {
+									$cont++;
+								}
+								if ($this->estaEnCuadranteIV()) {
+									$cont++;
+								}
+								return $cont;
+								//complete
+							}//fin getCuantosCuadrantes
+						
+							public function estaEnCuadranteI() {
+								$x = $this->x1 >= 0 && $this->y1 >= 0;
+								$y = $this->x2 >= 0 && $this->y2 >= 0;
+								return $primerCuadrante = ($x || $y) || (($this->estaEnCuadranteII() && $this->estaEnCuadranteIV()) && ($this->getfunctionersectoY() > 0));
+								/*complete*/
+							}//fin estaEnCuadranteI
+						
+							public function estaEnCuadranteII() {
+								$x = $this->x1 < 0 && $this->y1 >= 0;
+								$y = $this->x2 < 0 && $this->y2 >= 0;
+								return $segundoCuadrante = ($x || $y) || (($this->estaEnCuadranteIII()) && ($this->getfunctionersectoY() > 0));
+								/*complete*/
+							}//fin estaEnPrimerCuadranteII
+						
+							public function estaEnCuadranteIII() {
+								$x = $this->x1 < 0 && $this->y1 < 0;
+								$y = $this->x2 < 0 && $this->y2 < 0;
+								return $tercerCuadrante = ($x || $y) || (( $this->estaEnCuadranteIV()) && ($this->getfunctionersectoY() != 0));
+								/*complete*/  
+							}//fin estaEnCuadranteIII
+						
+							public function estaEnCuadranteIV() {
+								$x = $this->x1 >= 0 && $this->y1 < 0;
+								$y = $this->x2 >= 0 && $this->y2 < 0;
+								return $cuartoCuadrante = ($x || $y)  && ($this->getfunctionersectoY() != 0);
+								/*complete*/
+							}//fin estaEnCuadranteIV
+						
+							public function getPendiente() {
+								return $pendiente = ($this->y2 - $this->y1) / ($this->x2 - $this->x1);
+								/*complete*/
+							}
+						
+							public function getfunctionersectoY() {
+								$pendiente = $this->getPendiente();
+								return $functionersecto = $this->y1 / ($pendiente * $this->x1);
+								/*complete*/
+							}
+						
+							/*complete GET/SET*/
+						
+							//Start GetterSetterExtension Code
+							/**Getter method x1*/
+							public function getX1(){
+								return $this->x1;
+							}//end method getX1
+						
+							/**Setter method x1*/
+							public function setX1($x1){
+								$this->x1 = $x1;
+							}//end method setX1
+						
+							/**Getter method y1*/
+							public function getY1(){
+								return $this->y1;
+							}//end method getY1
+						
+							/**Setter method y1*/
+							public function setY1($y1){
+								$this->y1 = $y1;
+							}//end method setY1
+						
+							/**Getter method x2*/
+							public function getX2(){
+								return $this->x2;
+							}//end method getX2
+						
+							/**Setter method x2*/
+							public function setX2($x2){
+								$this->x2 = $x2;
+							}//end method setX2
+						
+							/**Getter method y2*/
+							public function getY2(){
+								return $this->y2;
+							}//end method getY2
+						
+							/**Setter method y2*/
+							public function setY2($y2){
+								$this->y2 = $y2;
+							}//end method setY2
+							//End GetterSetterExtension Code  
+						
+						}
+						?>
+                         </code>
+                    </pre>
+      </div>
+
+      <div id="control" class="tabcontent">
+        <pre><code class="language-php line-numbers">
+						require_once("modelo.php");
+
+						if (isset($_POST['act']) == "actualizar") {
+							$cuadrante = new GeometriaCuadrante($_POST['punto1x'],$_POST['punto1y'],$_POST['punto2x'], $_POST['punto2y']);
+							$punto1x = $cuadrante->getX1();
+							$punto1y = $cuadrante->getY1();
+							$punto2x = $cuadrante->getX2();
+							$punto2y = $cuadrante->getY2();
+							echo json_encode(array(
+								'puntoux' => $punto1x,
+								'puntouy'=>  $punto1y,
+								'puntodx' => $punto2x,
+								'puntody'=>  $punto2y));
+						}
+						
+						if (isset($_POST['posicion']) == "posicion") {
+							$cuadrante = new GeometriaCuadrante($_POST['punto1x'],$_POST['punto1y'],$_POST['punto2x'], $_POST['punto2y']);
+						
+							$res =$cuadrante->getUbicacion();
+							echo json_encode(array('success' => $res));
+						}
+						
+						?>
+				</code></pre>
+      </div>
+      <div id="controller" class="tabcontent">
+        <pre>
+                        <code class="language-javascript line-numbers">
+								function actulizarC() {
+									if(document.forms["cuadranteForm"]["punto1x"].value!="" && document.forms["cuadranteForm"]["punto1y"].value !="" && document.forms["cuadranteForm"]["punto2x"].value != "" && document.forms["cuadranteForm"]["punto2y"].value != ""){
+										var punto1x =parseFloat(document.forms["cuadranteForm"]["punto1x"].value);
+										var punto1y =parseFloat(document.forms["cuadranteForm"]["punto1y"].value);
+										var punto2x =parseFloat(document.forms["cuadranteForm"]["punto2x"].value);
+										var punto2y =parseFloat(document.forms["cuadranteForm"]["punto2y"].value);
+										var parametros = {
+											"punto1x": punto1x,
+											"punto1y": punto1y,
+											"punto2x":punto2x,
+											"punto2y":punto2y,
+											"act": "actualizar"
+										};
+										$.ajax({
+											type: "POST",
+											url: 'control.php',
+											data: parametros,
+											success: function (response) {
+												var jsonData = JSON.parse(response);
+												alert("Punto Uno X: "+ jsonData.puntoux+ ", Punto Uno Y : "+jsonData.puntouy + ", Punto Dos X "+ jsonData.puntodx + " , Punto Dos y " + jsonData.puntody);
+											}
+										});
+									}else{
+										alert("debe llenar todos los campos")
+									}
+								
+								
+									}
+								
+								function ubicacion() {
+									if(document.forms["cuadranteForm"]["punto1x"].value!="" && document.forms["cuadranteForm"]["punto1y"].value !="" && document.forms["cuadranteForm"]["punto2x"].value != "" && document.forms["cuadranteForm"]["punto2y"].value != ""){
+										var punto1x =parseFloat(document.forms["cuadranteForm"]["punto1x"].value);
+										var punto1y =parseFloat(document.forms["cuadranteForm"]["punto1y"].value);
+										var punto2x =parseFloat(document.forms["cuadranteForm"]["punto2x"].value);
+										var punto2y =parseFloat(document.forms["cuadranteForm"]["punto2y"].value);
+										var parametros = {
+											"punto1x": punto1x,
+											"punto1y": punto1y,
+											"punto2x":punto2x,
+											"punto2y":punto2y,
+											"posicion": "posicion"
+										};
+										$.ajax({
+											type: "POST",
+											url: 'control.php',
+											data: parametros,
+											success: function (response) {
+												var jsonData = JSON.parse(response);
+												alert("Ubicacion " + jsonData.success);
+											}
+										});
+									}else{
+											alert("debe llenar todos los campos")
+										}
+								
+									}
+                        </code>   
+                    </pre>
+      </div>
+      <div id="view" class="tabcontent">
+        <pre>
+                        <code>
+                                <script type="text/plain" class="language-markup line-numbers">
+                                  <section class="ejercicio">
+                                      <form name="cuadranteForm" method="post">
+                                        <h1 class="h1">LOCALIZADOR DIGITAL - LINEA</h1>
+                                        <table class="table">
+                                          <tr class="row">
+                                            <td class="cell">Punto 1 X</td>
+                                            <td class="cell">
+                                              <div class="input-item">
+                                                <input id="punto1x" name="punto1x">
+                                            </td>
+                                            </div>
+                                            <td class="cell" rowspan="4"><img src="descartes+caricatura.jpg"></td>
+                                          </tr>
+                                  
+                                          <tr class="row">
+                                            <td class="cell">Punto 1 Y</td>
+                                            <td class="cell">
+                                              <div class="input-item">
+                                                <input id="punto1y" name="punto1y">
+                                              </div>
+                                            </td>
+                                          </tr>
+                                          <tr class="row">
+                                            <td class="cell">Punto 2 X</td>
+                                            <td class="cell">
+                                              <div class="input-item">
+                                                <input id="punto2x" name="punto2x">
+                                              </div>
+                                            </td>
+                                          </tr>
+                                          <tr class="row">
+                                            <td class="cell">Punto 2 Y</td>
+                                            <td class="cell">
+                                              <div class="input-item">
+                                                <input id="punto2y" name="punto2y">
+                                              </div>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                        <div class="buttons">
+                                          <input class="cta" type="button" value="Actualizar Cordenadas" onclick="actulizarC()">
+                                          <input class="cta" type="button" value="Determinar Posicion" onclick="ubicacion()">
+                                        </div>
+                                      </form>
+                                    </section>
+                                </script>
+                        </code>
+                    </pre>
+      </div>
+      <div id="style" class="tabcontent">
+        <pre>
+                        <code class="language-css line-numbers">
+                                body,html{
+                                    font-family: Roboto, sans-serif;
+                                    font-size: 16px;
+                                    line-height: 1.6;
+                                    color: #9e9e9e;
+                                    overflow-x: hidden;
+                                }
+                                
+                                *{
+                                    margin: 0;
+                                    padding: 0;
+                                    outline: 0 !important;
+                                    text-decoration: none !important;
+                                    list-style-type: none !important;
+                                }
+                                
+                                input {
+                                    display: block;
+                                      outline: none;
+                                      border: none !important;
+                                  }
+                                  
+                                  textarea {
+                                    display: block;
+                                    outline: none;
+                                  }
+                                  
+                                  textarea:focus, input:focus {
+                                    border-color: transparent !important;
+                                  }
+                                
+                                header{
+                                    position: absolute;
+                                    z-index: 999;
+                                    width: 100%;
+                                    padding: 1.5em 0;
+                                    margin: -18px;
+                                }
+                                
+                                .wrapper{
+                                    width: 100%;
+                                    max-width: 1100px;
+                                    margin: 0 auto;
+                                }
+                                
+                                header img{
+                                    float: left;
+                                    width: 200px;
+                                    margin-left: -12px;
+                                    padding: 13px 80px 20px 0;
+                                }
+                                
+                                header ul.menu-left{
+                                    float: left;
+                                }
+                                
+                                header ul.menu-left li{
+                                    display: inline-block;
+                                    padding: 20px;
+                                }
+                                
+                                header ul.menu-left li a {
+                                    color: #606c7c;
+                                    transition: ease-in 0.2s;
+                                }
+                                
+                                header ul.menu-left li a:hover{
+                                    color: #ec4357;
+                                }
+                                
+                                header ul.menu-right{
+                                    float: right;
+                                }
+                                
+                                header ul.menu-right li.menu-cta{
+                                    width: 150px;
+                                    margin-top: .7em;
+                                    padding: .5em;
+                                    transition: .3s all ease;
+                                    text-align: center;
+                                    border-radius: 3px;
+                                    background: white;
+                                    box-shadow: 2px 4px 9px 1px rgba(0, 0, 0, 0.5);
+                                }
+                                
+                                header ul.menu-rigth li.menu-cta a{
+                                    font-weight: 500;
+                                    color: #ec4357;
+                                }
+                                
+                                /** intro page*/
+                                
+                                .intro{
+                                    position: relative;
+                                    overflow: hidden;
+                                    min-height: 600px;
+                                    padding-top: 4em;
+                                }
+                                
+                                .intro .intro-left{
+                                    display: inline-block;
+                                    width: 50%;
+                                    max-width: 500px;
+                                    padding: 3em 0;
+                                
+                                }
+                                
+                                .intro .intro-left h1{
+                                    font-size: 2.5em;
+                                    color: #241b57;
+                                    line-height: 1.5em;
+                                    position: relative;
+                                    margin-bottom: 1em;
+                                }
+                                
+                                .intro .intro-left h1::after{
+                                    bottom: -24px;
+                                    left: 0;
+                                    width: 40px;
+                                    height: 4px;
+                                    content: '';
+                                    border-radius: 5px;
+                                    background: #ec4357;
+                                    opacity: 0.4;
+                                    position: absolute;
+                                }
+                                
+                                .intro .intro-left p{
+                                    font-size: 1.125em;
+                                    line-height: 1.75em;
+                                
+                                }
+                                
+                                .intro .intro-left .buttons{
+                                    width: 100%;
+                                    display: flex;
+                                    align-content: space-around;
+                                    flex-direction: row;
+                                }
+                                
+                                .intro .intro-left a.intro-cta{
+                                    font-weight: 500;
+                                    display: block;
+                                    width: 100%;
+                                    max-width: 180px;
+                                    margin: 1em;
+                                    text-align: center;
+                                    color: #ffffff;
+                                    border-radius: 3px;
+                                    background: #ec4357;
+                                    padding: 1em; 
+                                    
+                                }
+                                
+                                .intro .intro-right{
+                                    position: relative;
+                                    display: inline-block;
+                                    margin-left: .6em;
+                                    width: 50%;
+                                }
+                                
+                                .intro .intro-right img{
+                                    max-width: 600px;
+                                }
+                                
+                                .intro .top-right-gradient{
+                                    position: absolute;
+                                    top: -40%;
+                                    right: -30%;
+                                    width: 800px;
+                                    height: 800px;
+                                    border-radius: 50%;
+                                    background: linear-gradient(#ee9ca7, #ec4357);
+                                }
+                                
+                                
+                                
+                                .intro .bottom-left-gradient{
+                                    position: absolute;
+                                    z-index: -999;
+                                    bottom: -2px;
+                                    left: -97px;
+                                    width: 200px;
+                                    height: 200px;
+                                    border-radius: 50%;
+                                    background: linear-gradient(#c779d0,#6c63ff);
+                                
+                                }
+                                
+                                /** about section*/
+                                
+                                .about{
+                                    position: relative;
+                                    overflow: hidden;
+                                    min-height: 600px;
+                                }
+                                
+                                .about .about-left{
+                                    display: inline-block;
+                                }
+                                
+                                .about .about-left img{
+                                    padding-bottom: 0.5em;
+                                    max-width: 500px;
+                                }
+                                
+                                .about .about-right{
+                                    display: inline-block;
+                                    width: 100%;
+                                    max-width: 400px;
+                                    margin-left: 10em;
+                                
+                                }
+                                
+                                .about .about-right h1{
+                                    font-size: 2.5em;
+                                    line-height: 1.5em;
+                                    position: relative;
+                                    margin-bottom: 1em;
+                                    color: #ec4357;
+                                }
+                                
+                                .about .about-right::after{
+                                    position: absolute;
+                                    bottom: -24px;
+                                    left: 0;
+                                    width: 40px;
+                                    height: 4px;
+                                    content: '';
+                                    border-radius: 5px;
+                                    background: #241b57;
+                                    opacity: 0.2;
+                                }
+                                
+                                .about .about-right p{
+                                    font-size: 1.125em;
+                                    line-height: 1.75em;
+                                }
+                                
+                                .about .about-right .buttons{
+                                    width: 100%;
+                                    display: flex;
+                                    align-content: space-around;
+                                    flex-direction: row;
+                                }
+                                
+                                .about .about-right a.cta{
+                                    position: relative;
+                                    font-weight: 600;
+                                    z-index: 99;
+                                    display: block;
+                                    width: 100%;
+                                    max-width: 200px;
+                                    margin: 2em 1em 1em;
+                                    padding: 1em;
+                                    text-align: center;
+                                    color: #ffffff;
+                                    border-radius: 3px;
+                                    background: #241b57;
+                                }
+                                
+                                .about .top-right-gradient{
+                                    position: absolute;
+                                    z-index: -999;
+                                    top: 45%;
+                                    right: -10%;
+                                    width: 300px;
+                                    height: 300px;
+                                    border-radius: 50%;
+                                    background: linear-gradient(#ee9ca7,#ec4357);
+                                }
+                                
+                                .page-banner{
+                                    background: #ee9ca7;
+                                    background-size: 130px;
+                                    text-align: center;
+                                }
+                                
+                                .page-banner h1{
+                                    font-size: 2.8em;
+                                    font-weight: 500;
+                                    color: #ffffff;
+                                }
+                                
+                                .page-banner h3{
+                                    color: #fff;
+                                    margin-bottom: 35px;
+                                    font-weight: 300;
+                                }
+                                
+                                .page-banner a{
+                                    color: #fff;
+                                    font-weight: 400;
+                                    max-width: 400px;
+                                    margin: 3em 0;
+                                    padding: 1em 3em;
+                                    text-align: center;
+                                    border-radius: 3px;
+                                    background: #241b57;
+                                
+                                }
+                                
+                                footer{
+                                    background-color: #fff;
+                                    width: 100%;
+                                    text-align: left;
+                                    padding: 50px 0;
+                                }
+                                
+                                footer .footer-left,
+                                footer .footer-center,
+                                footer .footer-right{
+                                    display: inline-block;
+                                    vertical-align: top;
+                                }
+                                
+                                footer .footer-left{
+                                    width: 40%;
+                                }
+                                
+                                footer .footer-links{
+                                    color: #241b57;
+                                    margin: 25px 0;
+                                    font-size: 14px;
+                                }
+                                
+                                footer .footer-links a{
+                                    display: inline-block;
+                                    line-height: 1.8;
+                                    text-decoration: none;
+                                    color: inherit;
+                                    padding-right: 2em;
+                                }
+                                
+                                footer .footer-name{
+                                    color: #ec4357;
+                                    font-size: 14px;
+                                    font-weight: normal;
+                                    margin-top: 30px;
+                                }
+                                
+                                footer .footer-center{
+                                    width: 35%;
+                                
+                                }
+                                
+                                footer .footer-center i{
+                                    background-color: #fff;
+                                    color: #ec4357;
+                                    width: 40px;
+                                    height: 40px;
+                                    text-align: center;
+                                    line-height: 42px;
+                                    margin: 10px 15px;
+                                    vertical-align: middle;
+                                }
+                                
+                                footer .footer-center p{
+                                    display: inline-block;
+                                    color: #241b57;
+                                    vertical-align: middle;
+                                    margin: 0;
+                                    font-size: 14px;
+                                }
+                                
+                                footer .footer-center p span{
+                                    display: block;
+                                    font-weight: normal;
+                                    line-height: 2;
+                                }
+                                
+                                footer .footer-center p a{
+                                    color: #241b57;
+                                    text-decoration: none;
+                                }
+                                
+                                footer .footer-right{
+                                    width: 20%;
+                                }
+                                
+                                footer .footer-connect{
+                                    line-height: 20px;
+                                    color: #241b57;
+                                    font-size: 12px;
+                                    font-weight: normal;
+                                    margin: 0;
+                                }
+                                
+                                footer .footer-connect span{
+                                    display: block;
+                                    color: #ec4357;
+                                    font-size: 16px;
+                                    font-weight: bold;
+                                }
+                                
+                                footer .footer-icons{
+                                    margin-top: 25px;
+                                }
+                                
+                                footer .footer-icons a{
+                                    display: inline-block;
+                                    width: 300px;
+                                    height: 300px;
+                                    cursor: pointer;
+                                    background-color: #fff;
+                                    border-radius: 2px;
+                                    font-size: 300px;
+                                    text-align: center;
+                                    line-height: 35px;
+                                    margin-left: 200px;
+                                }
+                                
+                                .ejercicio{
+                                    margin: 50px;
+                                }
+                                
+                                .table {
+                                    width: 100%;
+                                    display: table;
+                                    margin: 0;
+                                    text-align: center;
+                                  }
+                                  
+                                  @media screen and (max-width: 768px) {
+                                    .table {
+                                      display: block;
+                                    }
+                                  }
+                                  
+                                  .row {
+                                    display: table-row;
+                                    background: #fff;
+                                  }
+                                  
+                                  .row.header {
+                                    color: #ffffff;
+                                    background: #6c7ae0;
+                                  }
+                                  
+                                  @media screen and (max-width: 768px) {
+                                    .row {
+                                      display: block;
+                                    }
+                                  
+                                    .row.header {
+                                      padding: 0;
+                                      height: 0px;
+                                    }
+                                  
+                                    .row.header .cell {
+                                      display: none;
+                                    }
+                                  
+                                    .row .cell:before {
+                                      font-family: Poppins-Bold;
+                                      font-size: 12px;
+                                      color: #808080;
+                                      line-height: 1.2;
+                                      text-transform: uppercase;
+                                      font-weight: unset !important;
+                                  
+                                      margin-bottom: 13px;
+                                      content: attr(data-title);
+                                      min-width: 98px;
+                                      display: block;
+                                    }
+                                  }
+                                  
+                                  .cell {
+                                    display: table-cell;
+                                  }
+                                  
+                                  @media screen and (max-width: 768px) {
+                                    .cell {
+                                      display: block;
+                                    }
+                                  }
+                                  
+                                  .row .cell {
+                                    font-family: Poppins-Regular;
+                                    font-size: 15px;
+                                    color: #666666;
+                                    line-height: 1.2;
+                                    font-weight: unset !important;
+                                  
+                                    padding-top: 20px;
+                                    padding-bottom: 20px;
+                                    border-bottom: 1px solid #f2f2f2;
+                                  }
+                                  
+                                  .row.header .cell {
+                                    font-family: Poppins-Regular;
+                                    font-size: 18px;
+                                    color: #fff;
+                                    line-height: 1.2;
+                                    font-weight: unset !important;
+                                  
+                                    padding-top: 19px;
+                                    padding-bottom: 19px;
+                                  }
+                                  
+                                  .row .cell:nth-child(1) {
+                                    width: 180px;
+                                    padding-left: 40px;
+                                  }
+                                  
+                                  .row .cell:nth-child(2) {
+                                    width: 160px;
+                                  }
+                                  
+                                  .row .cell:nth-child(3) {
+                                    width: 250px;
+                                  }
+                                  
+                                  .row .cell:nth-child(4) {
+                                    width: 190px;
+                                  }
+                                  
+                                  
+                                  .table, .row {
+                                    width: 100% !important;
+                                  }
+                                  
+                                  .row:hover {
+                                    background-color: #ececff;
+                                    cursor: pointer;
+                                  }
+                                  
+                                  @media (max-width: 768px) {
+                                    .row {
+                                      border-bottom: 1px solid #f2f2f2;
+                                      padding-bottom: 18px;
+                                      padding-top: 30px;
+                                      padding-right: 15px;
+                                      margin: 0;
+                                    }
+                                    
+                                    .row .cell {
+                                      border: none;
+                                      padding-left: 30px;
+                                      padding-top: 16px;
+                                      padding-bottom: 16px;
+                                    }
+                                    .row .cell:nth-child(1) {
+                                      padding-left: 30px;
+                                    }
+                                    
+                                    .row .cell {
+                                      font-family: Poppins-Regular;
+                                      font-size: 18px;
+                                      color: #555555;
+                                      line-height: 1.2;
+                                      font-weight: unset !important;
+                                    }
+                                  
+                                    .table, .row, .cell {
+                                      width: 100% !important;
+                                    }
+                                  }
+                                
+                                  .img {
+                                    margin-top: -121px;
+                                    width: 100%;
+                                    height: auto;
+                                }
+                                
+                                .h1{
+                                    font-size: 2.5em;
+                                    color: #241b57;
+                                    line-height: 1.5em;
+                                    position: relative;
+                                    margin-bottom: 1em;
+                                    text-align: center;
+                                }
+                                
+                                .h1::after{
+                                    bottom: -24px;
+                                    left: 0;
+                                    width: 100%;
+                                    height: 4px;
+                                    content: '';
+                                    border-radius: 5px;
+                                    background: #ec4357;
+                                    opacity: 0.4;
+                                    position: absolute;
+                                    margin-bottom: 30px;
+                                }
+                                
+                                .buttons{
+                                    width: 100%;
+                                    display: flex;
+                                    align-content: center;
+                                    flex-direction: row;
+                                    justify-content: center;
+                                }
+                                
+                                .cta{
+                                    font-weight: 500;
+                                    display: block;
+                                    width: 100%;
+                                    max-width: 180px;
+                                    margin: 1em;
+                                    text-align: center;
+                                    color: #ffffff;
+                                    border-radius: 3px;
+                                    background: #ec4357;
+                                    padding: 1em; 
+                                    
+                                }
+                                
+                                .input-item>input {
+                                    border: 0;
+                                    border-bottom: 2px solid #241b57 !important;
+                                    width: 100%;
+                                    font-size: 30px;
+                                    line-height: 35px;
+                                    height: 70px;
+                                    text-align: center;
+                                    padding: 10px;
+                                    background: transparent;
+                                       color: #ec4357;
+                                   }
+                                   
+                                   .input-item>input.shake {
+                                    animation-name: shaker;
+                                    animation-duration: 200ms;
+                                    animation-timing-function: ease-in-out;
+                                    animation-delay: 0s;
+                                   }
+                                   
+                                   .input-item>input:focus {
+                                    outline: 0;
+                                       color: #ec4357;
+                                   }
+                                   
+                                   .input-item>input::placeholder {
+                                    color: #ee818d;
+                                   }
+                                
+                                   .documentacion{
+                                    display: flex;
+                                    flex-direction: column;
+                                    align-content: center;
+                                    justify-content: center;
+                                   }
+                                   .codigo{
+                                       width: 100%;
+                                   }
+                                
+                                   /* Style the tab */
+                                .tab {
+                                    overflow: hidden;
+                                    border: 1px solid #ccc;
+                                    background-color: #6c63ff;
+                                  }
+                                  
+                                  /* Style the buttons inside the tab */
+                                  .tab button {
+                                    background-color: inherit;
+                                    float: left;
+                                    border: none;
+                                    outline: none;
+                                    cursor: pointer;
+                                    padding: 14px 16px;
+                                    transition: 0.3s;
+                                    font-size: 17px;
+                                    color: #fff;
+                                  }
+                                  
+                                  /* Change background color of buttons on hover */
+                                  .tab button:hover {
+                                    background-color: #7770fa;
+                                  }
+                                  
+                                  /* Create an active/current tablink class */
+                                  .tab button.active {
+                                    background-color: #524bd6;
+                                  }
+                                  
+                                  /* Style the tab content */
+                                  .tabcontent {
+                                    display: none;
+                                    padding: 6px 12px;
+                                    border: 1px solid #ccc;
+                                    border-top: none;
+                                  }
+                                  
+                                
+                                   .video{
+                                    width: 100%;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-content: center;
+                                   }
+                        </code>
+                    </pre>
+      </div>
+
+    </div>
+  </section>
+  <script>
+    function openTab(evt, tabName) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(tabName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+    document.getElementById("defaultOpen").click();
+  </script>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+    integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+  <script type="application/javascript" src="controller.js"></script>
+  <!-- jQuery Modal -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+  <script src="../prism.js"></script>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+    integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+  <script type="application/javascript" src="controller.js"></script>
+
+</body>
+
+</html>
